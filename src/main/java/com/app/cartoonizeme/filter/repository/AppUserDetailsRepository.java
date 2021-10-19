@@ -9,4 +9,7 @@ public interface AppUserDetailsRepository extends JpaRepository<App_User_Details
 	 
     @Query("SELECT c FROM App_User_Details c WHERE c.username = :username")
       App_User_Details findByUsername(String username); 
+    
+    @Query("SELECT c FROM App_User_Details c WHERE c.username = :username and c.password = :password")
+    App_User_Details findByUsernameAndPassword(String username,String password); 
 }
