@@ -1,6 +1,8 @@
 package com.app.cartoonizeme.filter.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,16 @@ public class UserController {
 		System.out.println("user.getUsername() : " + user.getUsername());
 		appUserDetailsRepository.save(user);
 		return user.getUsername() + " registered";
+	}
+	
+	@GetMapping("/login")
+	public HttpStatus login(@RequestBody App_User_Details user) {
+		App_User_Details tempUser = appUserDetailsRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
+        if (tempUser != null) {
+        	return HttpStatus.ACCEPTED;
+        } else {
+            return HttpStatus.UNAUTHORIZED;
+        }
 	}
 
 	@PutMapping("/resetpassword")
