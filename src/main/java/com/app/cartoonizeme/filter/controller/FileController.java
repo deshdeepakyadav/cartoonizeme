@@ -2,6 +2,7 @@ package com.app.cartoonizeme.filter.controller;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +54,7 @@ public class FileController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
-		String fileName = fileStorageService.storeFile(file,request.getSession().getId());
+		String fileName = fileStorageService.storeFile(file,request.getSession().getId()+new Date().getTime());
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
 				.path(fileName).toUriString();
 
